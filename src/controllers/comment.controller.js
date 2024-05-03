@@ -1,6 +1,30 @@
+// comment.controller.js
 import { pool } from '../config/db.js'
 
-// Obtener comentarios por ID de publicación
+/**
+ * @swagger
+ * tags:
+ *   name: Comments
+ *   description: Endpoints para manejar comentarios
+ */
+
+/**
+ * @swagger
+ * /comments/{postId}:
+ *   get:
+ *     summary: Obtener comentarios por ID de publicación
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: postId
+ *         required: true
+ *         description: ID de la publicación
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Lista de comentarios
+ */
 export const getCommentsByPostId = async (req, res) => {
   const postId = req.params.id
   try {
@@ -12,7 +36,29 @@ export const getCommentsByPostId = async (req, res) => {
   }
 }
 
-// Crear un nuevo comentario
+/**
+ * @swagger
+ * /comments:
+ *   post:
+ *     summary: Crear un nuevo comentario
+ *     tags: [Comments]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               comment:
+ *                 type: string
+ *               postId:
+ *                 type: integer
+ *               userId:
+ *                 type: integer
+ *     responses:
+ *       201:
+ *         description: Comentario creado exitosamente
+ */
 export const createComment = async (req, res) => {
   const { comment, postId, userId } = req.body
   try {
@@ -24,7 +70,32 @@ export const createComment = async (req, res) => {
   }
 }
 
-// Actualizar un comentario existente
+/**
+ * @swagger
+ * /comments/{id}:
+ *   put:
+ *     summary: Actualizar un comentario existente
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del comentario a actualizar
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               comment:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Comentario actualizado exitosamente
+ */
 export const updateComment = async (req, res) => {
   const commentId = req.params.id
   const { comment } = req.body
@@ -37,7 +108,23 @@ export const updateComment = async (req, res) => {
   }
 }
 
-// Eliminar un comentario existente
+/**
+ * @swagger
+ * /comments/{id}:
+ *   delete:
+ *     summary: Eliminar un comentario existente
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del comentario a eliminar
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Comentario eliminado exitosamente
+ */
 export const deleteComment = async (req, res) => {
   const commentId = req.params.id
   try {

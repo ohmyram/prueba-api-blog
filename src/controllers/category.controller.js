@@ -1,17 +1,51 @@
 import { pool } from '../config/db.js'
 
-// Obtener todas las categorías
+/**
+ * @swagger
+ * tags:
+ *   name: Categories
+ *   description: Endpoints para manejar categorías
+ */
+
+/**
+ * @swagger
+ * /categories:
+ *   get:
+ *     summary: Obtener todas las categorías
+ *     tags: [Categories]
+ *     responses:
+ *       200:
+ *         description: Lista de categorías
+ */
 export const getCategories = async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM categories')
-    res.json(rows)
+    const categories = await pool.query('SELECT * FROM categories')
+    res.status(200).json(categories)
   } catch (error) {
-    console.error('Error al obtener categorías:', error)
-    res.status(500).json({ message: 'Error interno del servidor' })
+    console.error('Error getting categories:', error)
+    res.status(500).json({ message: 'Server error' })
   }
 }
 
-// Crear una nueva categoría
+/**
+ * @swagger
+ * /categories:
+ *   post:
+ *     summary: Crear una nueva categoría
+ *     tags: [Categories]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               categoryName:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Categoría creada exitosamente
+ */
 export const createCategory = async (req, res) => {
   const { categoryName } = req.body
   try {
@@ -23,7 +57,32 @@ export const createCategory = async (req, res) => {
   }
 }
 
-// Actualizar una categoría existente
+/**
+ * @swagger
+ * /categories/{id}:
+ *   put:
+ *     summary: Actualizar una categoría existente
+ *     tags: [Categories]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID de la categoría a actualizar
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               categoryName:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Categoría actualizada exitosamente
+ */
 export const updateCategory = async (req, res) => {
   const categoryId = req.params.id
   const { categoryName } = req.body
@@ -36,7 +95,23 @@ export const updateCategory = async (req, res) => {
   }
 }
 
-// Eliminar una categoría existente
+/**
+ * @swagger
+ * /categories/{id}:
+ *   delete:
+ *     summary: Eliminar una categoría existente
+ *     tags: [Categories]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID de la categoría a eliminar
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Categoría eliminada exitosamente
+ */
 export const deleteCategory = async (req, res) => {
   const categoryId = req.params.id
   try {

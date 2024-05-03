@@ -1,6 +1,23 @@
+// user.controller.js
 import { pool } from '../config/db.js'
 
-// Obtener todos los usuarios
+/**
+ * @swagger
+ * tags:
+ *   name: Users
+ *   description: Endpoints para manejar usuarios
+ */
+
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Obtener todos los usuarios
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: Lista de usuarios
+ */
 export const getUsers = async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM users')
@@ -11,7 +28,31 @@ export const getUsers = async (req, res) => {
   }
 }
 
-// Crear un nuevo usuario
+/**
+ * @swagger
+ * /users:
+ *   post:
+ *     summary: Crear un nuevo usuario
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               role_id:
+ *                 type: integer
+ *     responses:
+ *       201:
+ *         description: Usuario creado exitosamente
+ */
 export const createUser = async (req, res) => {
   const { username, email, password, role_id: roleId } = req.body
   try {
@@ -28,7 +69,38 @@ export const createUser = async (req, res) => {
   }
 }
 
-// Actualizar un usuario existente
+/**
+ * @swagger
+ * /users/{id}:
+ *   put:
+ *     summary: Actualizar un usuario existente
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del usuario a actualizar
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               role_id:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Usuario actualizado exitosamente
+ */
 export const updateUser = async (req, res) => {
   const userId = req.params.id
   const { username, email, password, role_id: roleId } = req.body
@@ -46,7 +118,23 @@ export const updateUser = async (req, res) => {
   }
 }
 
-// Eliminar un usuario existente
+/**
+ * @swagger
+ * /users/{id}:
+ *   delete:
+ *     summary: Eliminar un usuario existente
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del usuario a eliminar
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Usuario eliminado exitosamente
+ */
 export const deleteUser = async (req, res) => {
   const userId = req.params.id
   try {
