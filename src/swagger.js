@@ -5,7 +5,7 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Proyecto Final Nivel 2',
+      title: 'Proyecto Final Nivel 2 - Ramses Ruiz',
       version: '1.0.0',
       description: 'API RESTful utilizando Express.js y MySQL para crear una plataforma de blogging interactiva'
     }
