@@ -5,9 +5,9 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'API de Ejemplo',
+      title: 'Proyecto Final Nivel 2',
       version: '1.0.0',
-      description: 'Una API de ejemplo con Swagger'
+      description: 'API RESTful utilizando Express.js y MySQL para crear una plataforma de blogging interactiva'
     }
   },
   apis: ['./routes/*.js'] // Ruta(s) donde se encuentran tus archivos de definición de ruta
